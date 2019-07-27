@@ -34,7 +34,7 @@ public class BackUpAndRestore {
         String backUpCommand = "mysqldump -h192.168.254.130 -utgrenzo -p@sdf1234 --add-drop-database -B inventory -r " + CURRENT_PATH + getCurrentDate() + ".sql";
         Process runtimeProcess;
         try {
-            runtimeProcess=runtime.exec(backUpCommand);
+            runtimeProcess = runtime.exec(backUpCommand);
             int processComplete = runtimeProcess.waitFor();
             if (processComplete == 0) {
                 JOptionPane.showMessageDialog(null, "Back-Up Created Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -47,12 +47,12 @@ public class BackUpAndRestore {
     }
 
     private static void performRestore() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :) or you can just modify this.
-        File file = lastFileModified(CURRENT_PATH);
+        File file = getLatestBackUp();
         Runtime runtime = Runtime.getRuntime();
         String[] restoreCommand = new String[]{"mysql", "--host=" + "192.168.254.130", "--user=" + "tgrenzo", "--password=" + "@sdf1234", "-e", "source " + file.getAbsolutePath()};
         Process runtimeProcess;
         try {
-            runtimeProcess=runtime.exec(restoreCommand);
+            runtimeProcess = runtime.exec(restoreCommand);
             int processComplete = runtimeProcess.waitFor();
             if (processComplete == 0) {
                 JOptionPane.showMessageDialog(null, "Database Restored Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -64,18 +64,18 @@ public class BackUpAndRestore {
         }
     }
 
-    private static File lastFileModified(String directory) {
-        File fl = new File(directory);
+    private static File getLatestBackUp() {
+        File fl = new File(BackUpAndRestore.CURRENT_PATH);
         File[] files = fl.listFiles(File::isFile);
         long lastMod = Long.MIN_VALUE;
-        File choice = null;
+        File latest = null;
         for (File file : Objects.requireNonNull(files)) {
-            if (file.lastModified() > lastMod) {
-                choice = file;
+            if ((file.lastModified() > lastMod) && (file.toString().endsWith(".sql"))) {
+                latest = file;
                 lastMod = file.lastModified();
             }
         }
-        return choice;
+        return latest;
     }
 
     private static String getCurrentDate() {
