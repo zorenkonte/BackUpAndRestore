@@ -70,7 +70,7 @@ public class BackUpAndRestore {
         long lastMod = Long.MIN_VALUE;
         File latest = null;
         for (File file : Objects.requireNonNull(files)) {
-            if ((file.lastModified() > lastMod) && (file.toString().endsWith(".sql"))) {
+            if ((file.lastModified() > lastMod) && (file.toString().endsWith(".sql"))) { //Check files that has .sql extensions only.
                 latest = file;
                 lastMod = file.lastModified();
             }
