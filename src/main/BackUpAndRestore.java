@@ -29,7 +29,7 @@ public class BackUpAndRestore {
         }
     }
 
-    private static void performBackUp() {
+    private static void performBackUp() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :)
         Runtime runtime = Runtime.getRuntime();
         String backUpCommand = "mysqldump -h192.168.254.130 -utgrenzo -p@sdf1234 --add-drop-database -B inventory -r " + CURRENT_PATH + getCurrentDate() + ".sql";
         Process runtimeProcess;
@@ -40,13 +40,13 @@ public class BackUpAndRestore {
                 JOptionPane.showMessageDialog(null, "Back-Up Created Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Couldn't Create Back-Up :(", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            }   //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private static void performRestore() {
+    private static void performRestore() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :) or you can just modify this.
         File file = lastFileModified(CURRENT_PATH);
         Runtime runtime = Runtime.getRuntime();
         String[] restoreCommand = new String[]{"mysql", "--host=" + "192.168.254.130", "--user=" + "tgrenzo", "--password=" + "@sdf1234", "-e", "source " + file.getAbsolutePath()};
@@ -58,7 +58,7 @@ public class BackUpAndRestore {
                 JOptionPane.showMessageDialog(null, "Database Restored Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Couldn't Restore Database :(", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            }  //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {
             ex.printStackTrace();
         }
