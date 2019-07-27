@@ -10,6 +10,8 @@ import java.util.*;
 
 public class BackUpAndRestore {
 
+    //TODO-RENZO: I will separate the utility methods in a separate class.
+
     private static final String FILE_NAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSSS";
     private static final Path PATH = FileSystems.getDefault().getPath(".").toAbsolutePath();
     private static final String CURRENT_PATH = PATH.toString().replace(".", "");
