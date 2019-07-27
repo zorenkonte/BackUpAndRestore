@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="backupandrestore" default="all">
+  
+  
+  <property file="backupandrestore.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.ear"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+    <include name="*.klib"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.12" value="${jdk.home.12}/bin"/>
+  <path id="jdk.classpath.12">
+    <fileset dir="${jdk.home.12}">
+      <include name="../jdk-12.0.2!/java.base"/>
+      <include name="../jdk-12.0.2!/java.compiler"/>
+      <include name="../jdk-12.0.2!/java.datatransfer"/>
+      <include name="../jdk-12.0.2!/java.desktop"/>
+      <include name="../jdk-12.0.2!/java.instrument"/>
+      <include name="../jdk-12.0.2!/java.logging"/>
+      <include name="../jdk-12.0.2!/java.management"/>
+      <include name="../jdk-12.0.2!/java.management.rmi"/>
+      <include name="../jdk-12.0.2!/java.naming"/>
+      <include name="../jdk-12.0.2!/java.net.http"/>
+      <include name="../jdk-12.0.2!/java.prefs"/>
+      <include name="../jdk-12.0.2!/java.rmi"/>
+      <include name="../jdk-12.0.2!/java.scripting"/>
+      <include name="../jdk-12.0.2!/java.se"/>
+      <include name="../jdk-12.0.2!/java.security.jgss"/>
+      <include name="../jdk-12.0.2!/java.security.sasl"/>
+      <include name="../jdk-12.0.2!/java.smartcardio"/>
+      <include name="../jdk-12.0.2!/java.sql"/>
+      <include name="../jdk-12.0.2!/java.sql.rowset"/>
+      <include name="../jdk-12.0.2!/java.transaction.xa"/>
+      <include name="../jdk-12.0.2!/java.xml"/>
+      <include name="../jdk-12.0.2!/java.xml.crypto"/>
+      <include name="../jdk-12.0.2!/jdk.accessibility"/>
+      <include name="../jdk-12.0.2!/jdk.aot"/>
+      <include name="../jdk-12.0.2!/jdk.attach"/>
+      <include name="../jdk-12.0.2!/jdk.charsets"/>
+      <include name="../jdk-12.0.2!/jdk.compiler"/>
+      <include name="../jdk-12.0.2!/jdk.crypto.cryptoki"/>
+      <include name="../jdk-12.0.2!/jdk.crypto.ec"/>
+      <include name="../jdk-12.0.2!/jdk.crypto.mscapi"/>
+      <include name="../jdk-12.0.2!/jdk.dynalink"/>
+      <include name="../jdk-12.0.2!/jdk.editpad"/>
+      <include name="../jdk-12.0.2!/jdk.hotspot.agent"/>
+      <include name="../jdk-12.0.2!/jdk.httpserver"/>
+      <include name="../jdk-12.0.2!/jdk.internal.ed"/>
+      <include name="../jdk-12.0.2!/jdk.internal.jvmstat"/>
+      <include name="../jdk-12.0.2!/jdk.internal.le"/>
+      <include name="../jdk-12.0.2!/jdk.internal.opt"/>
+      <include name="../jdk-12.0.2!/jdk.internal.vm.ci"/>
+      <include name="../jdk-12.0.2!/jdk.internal.vm.compiler"/>
+      <include name="../jdk-12.0.2!/jdk.internal.vm.compiler.management"/>
+      <include name="../jdk-12.0.2!/jdk.jartool"/>
+      <include name="../jdk-12.0.2!/jdk.javadoc"/>
+      <include name="../jdk-12.0.2!/jdk.jcmd"/>
+      <include name="../jdk-12.0.2!/jdk.jconsole"/>
+      <include name="../jdk-12.0.2!/jdk.jdeps"/>
+      <include name="../jdk-12.0.2!/jdk.jdi"/>
+      <include name="../jdk-12.0.2!/jdk.jdwp.agent"/>
+      <include name="../jdk-12.0.2!/jdk.jfr"/>
+      <include name="../jdk-12.0.2!/jdk.jlink"/>
+      <include name="../jdk-12.0.2!/jdk.jshell"/>
+      <include name="../jdk-12.0.2!/jdk.jsobject"/>
+      <include name="../jdk-12.0.2!/jdk.jstatd"/>
+      <include name="../jdk-12.0.2!/jdk.localedata"/>
+      <include name="../jdk-12.0.2!/jdk.management"/>
+      <include name="../jdk-12.0.2!/jdk.management.agent"/>
+      <include name="../jdk-12.0.2!/jdk.management.jfr"/>
+      <include name="../jdk-12.0.2!/jdk.naming.dns"/>
+      <include name="../jdk-12.0.2!/jdk.naming.rmi"/>
+      <include name="../jdk-12.0.2!/jdk.net"/>
+      <include name="../jdk-12.0.2!/jdk.pack"/>
+      <include name="../jdk-12.0.2!/jdk.rmic"/>
+      <include name="../jdk-12.0.2!/jdk.scripting.nashorn"/>
+      <include name="../jdk-12.0.2!/jdk.scripting.nashorn.shell"/>
+      <include name="../jdk-12.0.2!/jdk.sctp"/>
+      <include name="../jdk-12.0.2!/jdk.security.auth"/>
+      <include name="../jdk-12.0.2!/jdk.security.jgss"/>
+      <include name="../jdk-12.0.2!/jdk.unsupported"/>
+      <include name="../jdk-12.0.2!/jdk.unsupported.desktop"/>
+      <include name="../jdk-12.0.2!/jdk.xml.dom"/>
+      <include name="../jdk-12.0.2!/jdk.zipfs"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.12}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.12}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.12"/>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module BackUpAndRestore -->
+  
+  <dirname property="module.backupandrestore.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.backupandrestore" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.backupandrestore" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.backupandrestore" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.backupandrestore" value="-encoding UTF-8 -source 12 -target 12 ${compiler.args}"/>
+  
+  <property name="backupandrestore.output.dir" value="${module.backupandrestore.basedir}/out/production/BackUpAndRestore"/>
+  <property name="backupandrestore.testoutput.dir" value="${module.backupandrestore.basedir}/out/test/BackUpAndRestore"/>
+  
+  <path id="backupandrestore.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="backupandrestore.module.production.classpath">
+    <path refid="${module.jdk.classpath.backupandrestore}"/>
+  </path>
+  
+  <path id="backupandrestore.runtime.production.module.classpath">
+    <pathelement location="${backupandrestore.output.dir}"/>
+  </path>
+  
+  <path id="backupandrestore.module.classpath">
+    <path refid="${module.jdk.classpath.backupandrestore}"/>
+    <pathelement location="${backupandrestore.output.dir}"/>
+  </path>
+  
+  <path id="backupandrestore.runtime.module.classpath">
+    <pathelement location="${backupandrestore.testoutput.dir}"/>
+    <pathelement location="${backupandrestore.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.backupandrestore">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.backupandrestore">
+    <patternset refid="excluded.from.module.backupandrestore"/>
+  </patternset>
+  
+  <path id="backupandrestore.module.sourcepath">
+    <dirset dir="${module.backupandrestore.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.backupandrestore" depends="compile.module.backupandrestore.production,compile.module.backupandrestore.tests" description="Compile module BackUpAndRestore"/>
+  
+  <target name="compile.module.backupandrestore.production" depends="register.custom.compilers" description="Compile module BackUpAndRestore; production classes">
+    <mkdir dir="${backupandrestore.output.dir}"/>
+    <javac2 destdir="${backupandrestore.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.backupandrestore}/javac">
+      <compilerarg line="${compiler.args.backupandrestore}"/>
+      <bootclasspath refid="backupandrestore.module.bootclasspath"/>
+      <classpath refid="backupandrestore.module.production.classpath"/>
+      <src refid="backupandrestore.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.backupandrestore"/>
+    </javac2>
+    
+    <copy todir="${backupandrestore.output.dir}">
+      <fileset dir="${module.backupandrestore.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.backupandrestore.tests" depends="register.custom.compilers,compile.module.backupandrestore.production" description="compile module BackUpAndRestore; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.backupandrestore" description="cleanup module">
+    <delete dir="${backupandrestore.output.dir}"/>
+    <delete dir="${backupandrestore.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.backupandrestore" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.backupandrestore" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>
