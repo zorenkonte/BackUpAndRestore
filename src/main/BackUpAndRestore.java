@@ -6,8 +6,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class BackUpAndRestore {
 
@@ -52,6 +51,10 @@ public class BackUpAndRestore {
 
     private static void performRestore() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :) or you can just modify this.
         File file = getLatestBackUp();
+        if (file == null) {
+            JOptionPane.showMessageDialog(null, "It looks like you don't have back-up file yet in this directory. :(", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         Runtime runtime = Runtime.getRuntime();
         /*
          *  mysql is automatically registered to your environment variable when you install mysql server.
@@ -74,17 +77,11 @@ public class BackUpAndRestore {
     }
 
     private static File getLatestBackUp() {
-        File fl = new File(BackUpAndRestore.CURRENT_PATH);
-        File[] files = fl.listFiles(File::isFile);
-        long lastMod = Long.MIN_VALUE;
-        File latest = null;
-        for (File file : Objects.requireNonNull(files)) {
-            if ((file.lastModified() > lastMod) && (file.toString().endsWith(".sql"))) { //Check files that has .sql extensions only.
-                latest = file;
-                lastMod = file.lastModified();
-            }
-        }
-        return latest;
+        File directory = new File(BackUpAndRestore.CURRENT_PATH);
+        Optional<File> file = Arrays.stream(Objects.requireNonNull(directory.listFiles(File::isFile)))
+                            .filter(files -> (files.toString().endsWith(".sql")))
+                            .max(Comparator.comparingLong(File::lastModified));
+        return file.orElse(null);
     }
 
     private static String getCurrentDate() {
