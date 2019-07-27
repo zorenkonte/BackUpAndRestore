@@ -32,6 +32,10 @@ public class BackUpAndRestore {
     private static void performBackUp() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :)
         Runtime runtime = Runtime.getRuntime();
         String backUpCommand = "mysqldump -h192.168.254.130 -utgrenzo -p@sdf1234 --add-drop-database -B inventory -r " + CURRENT_PATH + getCurrentDate() + ".sql";
+        /*
+         *  mysldump variable is registered to my system path.
+         *  Or you can just replace it with the directory of mysqldump.exe in your machine.
+         */
         Process runtimeProcess;
         try {
             runtimeProcess = runtime.exec(backUpCommand);
@@ -49,6 +53,11 @@ public class BackUpAndRestore {
     private static void performRestore() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :) or you can just modify this.
         File file = getLatestBackUp();
         Runtime runtime = Runtime.getRuntime();
+        /*
+         *  mysql is automatically registered to your environment variable when you install mysql server.
+         *  So you dont need to add it manually to your environment variable.
+         *  Or you can just replace it with the directory of mysql.exe in your machine.
+         */
         String[] restoreCommand = new String[]{"mysql", "--host=" + "192.168.254.130", "--user=" + "tgrenzo", "--password=" + "@sdf1234", "-e", "source " + file.getAbsolutePath()};
         Process runtimeProcess;
         try {
