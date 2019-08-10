@@ -1,12 +1,14 @@
 package main;
 
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -17,6 +19,7 @@ public class BackUpAndRestore {
     private static final String FILE_NAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSSS";
     private static final Path PATH = FileSystems.getDefault().getPath(".").toAbsolutePath();
     private static final String CURRENT_PATH = PATH.toString().replace(".", "");
+    private static final Logger LOGGER = Logger.getLogger(BackUpAndRestore.class);
 
     public static void main(@NotNull String[] args) {
         switch (args[0]) {
@@ -34,7 +37,7 @@ public class BackUpAndRestore {
 
     private static void performBackUp(String host, String user, String password, String database) {
         Runtime runtime = Runtime.getRuntime();
-        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p " + password + " --add-drop-database -B " + database + " -r " + CURRENT_PATH + getCurrentDate() + ".sql";
+        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p" + password + " --add-drop-database -B " + database + " -r" + CURRENT_PATH + getCurrentDate() + ".sql";
         /*
          *  mysldump variable is registered to my system path.
          *  Or you can just replace it with the directory of mysqldump.exe in your machine.
@@ -47,19 +50,27 @@ public class BackUpAndRestore {
                 JOptionPane.showMessageDialog(null, "Back-Up Created Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Couldn't Create Back-Up :(", "Error", JOptionPane.ERROR_MESSAGE);
+                logError(runtimeProcess);
             }   //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex);
         }
     }
 
+    private static void logError(Process proc) {
+        var stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+        var stringBuilder = new StringBuilder();
+        stdError.lines().forEach(str -> stringBuilder.append(str).append("\n"));
+        LOGGER.error(stringBuilder);
+    }
+
     private static void performRestore(String host, String user, String password) {
-        File file = getLatestBackUp();
+        var file = getLatestBackUp();
         if (file == null) {
             JOptionPane.showMessageDialog(null, "It looks like you don't have back-up file yet in this directory. :(", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Runtime runtime = Runtime.getRuntime();
+        var runtime = Runtime.getRuntime();
         /*
          *  mysql is automatically registered to your environment variable when you install mysql server.
          *  So you dont need to add it manually to your environment variable.
@@ -74,17 +85,18 @@ public class BackUpAndRestore {
                 JOptionPane.showMessageDialog(null, "Database Restored Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Couldn't Restore Database :(", "Error", JOptionPane.ERROR_MESSAGE);
+                logError(runtimeProcess);
             }  //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex);
         }
     }
 
     private static File getLatestBackUp() {
-        File directory = new File(BackUpAndRestore.CURRENT_PATH);
+        var directory = new File(BackUpAndRestore.CURRENT_PATH);
         Optional<File> file = Arrays.stream(Objects.requireNonNull(directory.listFiles(File::isFile)))
-                            .filter(files -> (files.toString().endsWith(".sql")))
-                            .max(Comparator.comparingLong(File::lastModified));
+                .filter(files -> (files.toString().endsWith(".sql")))
+                .max(Comparator.comparingLong(File::lastModified));
         return file.orElse(null);
     }
 
@@ -96,7 +108,7 @@ public class BackUpAndRestore {
     @NotNull
     private static String toString(Date date) {
         if (date == null) return "DATE_ERROR"; //fix if date is null just return DATE_ERROR
-        DateFormat dateFormat = new SimpleDateFormat(BackUpAndRestore.FILE_NAME_FORMAT);
+        var dateFormat = new SimpleDateFormat(BackUpAndRestore.FILE_NAME_FORMAT);
         return dateFormat.format(date);
     }
 }
