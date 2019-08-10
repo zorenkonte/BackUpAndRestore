@@ -1,5 +1,7 @@
 package main;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -16,13 +18,13 @@ public class BackUpAndRestore {
     private static final Path PATH = FileSystems.getDefault().getPath(".").toAbsolutePath();
     private static final String CURRENT_PATH = PATH.toString().replace(".", "");
 
-    public static void main(String[] args) {
+    public static void main(@NotNull String[] args) {
         switch (args[0]) {
             case "backup":
-                performBackUp();
+                performBackUp(args[1], args[2], args[3], args[4]);
                 break;
             case "restore":
-                performRestore();
+                performRestore(args[1], args[2], args[3]);
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "I Can't Execute Your Command :(", "Error", JOptionPane.ERROR_MESSAGE);
@@ -30,9 +32,9 @@ public class BackUpAndRestore {
         }
     }
 
-    private static void performBackUp() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :)
+    private static void performBackUp(String host, String user, String password, String database) {
         Runtime runtime = Runtime.getRuntime();
-        String backUpCommand = "mysqldump -h192.168.254.130 -utgrenzo -p@sdf1234 --add-drop-database -B inventory -r " + CURRENT_PATH + getCurrentDate() + ".sql";
+        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p " + password + " --add-drop-database -B " + database + " -r " + CURRENT_PATH + getCurrentDate() + ".sql";
         /*
          *  mysldump variable is registered to my system path.
          *  Or you can just replace it with the directory of mysqldump.exe in your machine.
@@ -51,7 +53,7 @@ public class BackUpAndRestore {
         }
     }
 
-    private static void performRestore() { //TODO-RENZO: The current username, password, host, and password has static value. Ill change this if i have time :) or you can just modify this.
+    private static void performRestore(String host, String user, String password) {
         File file = getLatestBackUp();
         if (file == null) {
             JOptionPane.showMessageDialog(null, "It looks like you don't have back-up file yet in this directory. :(", "Error", JOptionPane.ERROR_MESSAGE);
@@ -63,7 +65,7 @@ public class BackUpAndRestore {
          *  So you dont need to add it manually to your environment variable.
          *  Or you can just replace it with the directory of mysql.exe in your machine.
          */
-        String[] restoreCommand = new String[]{"mysql", "--host=" + "192.168.254.130", "--user=" + "tgrenzo", "--password=" + "@sdf1234", "-e", "source " + file.getAbsolutePath()};
+        String[] restoreCommand = new String[]{"mysql", "--host=" + host, "--user=" + user, "--password=" + password, "-e", "source " + file.getAbsolutePath()};
         Process runtimeProcess;
         try {
             runtimeProcess = runtime.exec(restoreCommand);
@@ -86,10 +88,12 @@ public class BackUpAndRestore {
         return file.orElse(null);
     }
 
+    @NotNull
     private static String getCurrentDate() {
         return toString(new Date());
     }
 
+    @NotNull
     private static String toString(Date date) {
         if (date == null) return "DATE_ERROR"; //fix if date is null just return DATE_ERROR
         DateFormat dateFormat = new SimpleDateFormat(BackUpAndRestore.FILE_NAME_FORMAT);
