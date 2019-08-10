@@ -61,7 +61,7 @@ public class BackUpAndRestore {
         var stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
         var stringBuilder = new StringBuilder();
         stdError.lines().forEach(str -> stringBuilder.append(str).append("\n"));
-        LOGGER.error(stringBuilder);
+        LOGGER.trace(stringBuilder);
     }
 
     private static void performRestore(String host, String user, String password) {
@@ -88,7 +88,7 @@ public class BackUpAndRestore {
                 logError(runtimeProcess);
             }  //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {
-            LOGGER.error(ex);
+            LOGGER.trace(ex);
         }
     }
 
