@@ -34,7 +34,7 @@ public class BackUpAndRestore {
 
     private static void performBackUp(String host, String user, String password, String database) {
         Runtime runtime = Runtime.getRuntime();
-        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p" + password + " --add-drop-database -B" + database + " -r " + CURRENT_PATH + getCurrentDate() + ".sql";
+        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p" + password + " --add-drop-database -B " + database + " -r " + CURRENT_PATH + getCurrentDate() + ".sql";
         /*
          *  mysldump variable is registered to my system path.
          *  Or you can just replace it with the directory of mysqldump.exe in your machine.
