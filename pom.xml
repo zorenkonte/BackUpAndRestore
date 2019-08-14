@@ -8,10 +8,21 @@
     <artifactId>Java MySQL Backup and Restore</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 
-    <properties>
-        <maven.compiler.release>12</maven.compiler.release>
-    </properties>
+        <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>17.0.0</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -20,7 +31,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <release>12</release> <!-- or 12 -->
+                    <release>12</release>
                 </configuration>
             </plugin>
         </plugins>
