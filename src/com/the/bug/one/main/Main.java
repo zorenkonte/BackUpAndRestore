@@ -1,7 +1,7 @@
-package the.bug.one.main;
+package com.the.bug.one.main;
 
-import the.bug.one.backup.BackUp;
-import the.bug.one.restore.Restore;
+import com.the.bug.one.backup.BackUp;
+import com.the.bug.one.restore.Restore;
 
 public class Main {
     public static void main(String[] args) {

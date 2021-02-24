@@ -1,4 +1,4 @@
-package the.bug.one.util;
+package com.the.bug.one.util;
 
 import org.jetbrains.annotations.NotNull;
 

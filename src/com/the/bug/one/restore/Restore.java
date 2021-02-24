@@ -1,7 +1,7 @@
-package the.bug.one.restore;
+package com.the.bug.one.restore;
 
-import the.bug.one.logger.FileLogger;
-import the.bug.one.util.Utility;
+import com.the.bug.one.logger.FileLogger;
+import com.the.bug.one.util.Utility;
 
 import javax.swing.*;
 

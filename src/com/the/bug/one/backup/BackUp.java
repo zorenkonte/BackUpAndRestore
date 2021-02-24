@@ -1,13 +1,14 @@
-package the.bug.one.backup;
+package com.the.bug.one.backup;
+
+import com.the.bug.one.logger.FileLogger;
+import com.the.bug.one.util.Utility;
 
 import javax.swing.*;
-import the.bug.one.logger.FileLogger;
-import the.bug.one.util.Utility;
 
 public class BackUp {
     public static void performBackUp(String host, String user, String password, String database) {
         Runtime runtime = Runtime.getRuntime();
-        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p" + password + " --add-drop-database -B " + database + " -r " + Utility.getCurrentPath() +  Utility.getCurrentDate() + ".sql";
+        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p" + password + " --add-drop-database -B " + database + " -r " + Utility.getCurrentPath() + Utility.getCurrentDate() + ".sql";
         /*
          *  mysldump variable is registered to my system path.
          *  Or you can just replace it with the directory of mysqldump.exe in your machine.

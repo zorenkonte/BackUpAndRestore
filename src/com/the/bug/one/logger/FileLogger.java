@@ -1,7 +1,7 @@
-package the.bug.one.logger;
+package com.the.bug.one.logger;
 
+import com.the.bug.one.main.Main;
 import org.apache.log4j.Logger;
-import the.bug.one.main.Main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
