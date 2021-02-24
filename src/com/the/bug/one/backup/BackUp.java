@@ -8,11 +8,12 @@ import javax.swing.*;
 public class BackUp {
     public static void performBackUp(String host, String user, String password, String database) {
         Runtime runtime = Runtime.getRuntime();
-        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p" + password + " --add-drop-database -B " + database + " -r " + Utility.getCurrentPath() + Utility.getCurrentDate() + ".sql";
+        String backUpCommand = "mysqldump -h" + host + " -u" + user + " -p" + password + " --add-drop-database -B " + database + " -r " + Utility.getDefaultDir() + Utility.getCurrentDate() + ".sql";
         /*
          *  mysldump variable is registered to my system path.
          *  Or you can just replace it with the directory of mysqldump.exe in your machine.
          */
+        System.out.println(backUpCommand);
         Process runtimeProcess;
         try {
             runtimeProcess = runtime.exec(backUpCommand);
