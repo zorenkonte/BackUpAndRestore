@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="BackUpAndRestore" target="12" />
+      <module name="BackUpAndRestore" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
