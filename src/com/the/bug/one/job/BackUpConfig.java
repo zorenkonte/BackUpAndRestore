@@ -1,11 +1,16 @@
 package com.the.bug.one.job;
 
 public class BackUpConfig {
+    private static BackUpConfig INSTANCE = null;
     private String host;
     private String user;
     private String password;
     private String database;
     private String port;
+
+    public BackUpConfig() {
+
+    }
 
     public BackUpConfig(String host, String user, String password, String database) {
         this.host = host;
@@ -17,6 +22,13 @@ public class BackUpConfig {
     public BackUpConfig(String host, String user, String password, String database, String port) {
         this(host, user, password, database);
         this.port = port;
+    }
+
+    public static BackUpConfig getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new BackUpConfig();
+        }
+        return INSTANCE;
     }
 
     public String getHost() {

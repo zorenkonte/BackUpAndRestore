@@ -1,9 +1,10 @@
 package com.the.bug.one.util;
 
+import com.the.bug.one.job.BackUpConfig;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.filechooser.FileSystemView;
-import java.io.File;
+import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
@@ -51,6 +52,29 @@ public class Utility {
             System.out.println("Folder has been created.");
         } else {
             System.out.println("Folder already exists.");
+        }
+    }
+
+    public static void main(String[] args) {
+        loadProperties();
+    }
+
+    public static void loadProperties() {
+        try (InputStream input = Utility.class.getClassLoader().getResourceAsStream("resources/app.properties")) {
+            var conf = BackUpConfig.getInstance();
+            var prop = new Properties();
+            if (input == null) {
+                System.out.println("Sorry, unable to find config.properties");
+                return;
+            }
+            prop.load(input);
+            conf.setHost(prop.getProperty("host"));
+            conf.setPort(prop.getProperty("port"));
+            conf.setUser(prop.getProperty("user"));
+            conf.setPassword(prop.getProperty("password"));
+            conf.setDatabase(prop.getProperty("database"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
