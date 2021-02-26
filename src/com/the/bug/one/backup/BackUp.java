@@ -4,6 +4,7 @@ import com.the.bug.one.logger.FileLogger;
 import com.the.bug.one.util.Utility;
 
 import javax.swing.*;
+import java.time.Instant;
 
 public class BackUp {
     public static void performBackUp(String host, String user, String password, String database) {
@@ -19,9 +20,9 @@ public class BackUp {
             runtimeProcess = runtime.exec(backUpCommand);
             int processComplete = runtimeProcess.waitFor();
             if (processComplete == 0) {
-                JOptionPane.showMessageDialog(null, "Back-Up Created Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
+                System.out.format("%s : %s", "Back up created successfully", Instant.now());
             } else {
-                JOptionPane.showMessageDialog(null, "Couldn't Create Back-Up :(", "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.format("%s : %s", "Couldn't Create Back-Up :(", Instant.now());
                 FileLogger.logError(runtimeProcess);
             }   //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {

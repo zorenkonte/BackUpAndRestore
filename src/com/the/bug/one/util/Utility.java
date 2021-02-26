@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
@@ -43,5 +44,14 @@ public class Utility {
         if (date == null) return "DATE_ERROR"; //fix if date is null just return DATE_ERROR
         var dateFormat = new SimpleDateFormat(FILE_NAME_FORMAT);
         return dateFormat.format(date);
+    }
+
+    public static void createDefaultDirectory() {
+        var file = new File(getDefaultDir());
+        if (file.mkdirs()) {
+            System.out.println("Folder has been created.");
+        } else {
+            System.out.println("Folder already exists.");
+        }
     }
 }
