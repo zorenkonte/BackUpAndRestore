@@ -1,34 +1,48 @@
 package com.the.bug.one.job;
 
-public class BackUpConfig {
-    private static BackUpConfig INSTANCE = null;
+public class PropertyConfig {
+    private static PropertyConfig INSTANCE = null;
     private String host;
     private String user;
     private String password;
     private String database;
     private String port;
+    private String cronExpression;
 
-    public BackUpConfig() {
+    public PropertyConfig() {
 
     }
 
-    public BackUpConfig(String host, String user, String password, String database) {
+    public PropertyConfig(String host, String user, String password, String database) {
         this.host = host;
         this.user = user;
         this.password = password;
         this.database = database;
     }
 
-    public BackUpConfig(String host, String user, String password, String database, String port) {
+    public PropertyConfig(String host, String user, String password, String database, String port) {
         this(host, user, password, database);
         this.port = port;
     }
 
-    public static BackUpConfig getInstance() {
+    public PropertyConfig(String host, String user, String password, String database, String port, String cronExpression) {
+        this(host, user, password, database, port);
+        this.cronExpression = cronExpression;
+    }
+
+    public static PropertyConfig getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new BackUpConfig();
+            INSTANCE = new PropertyConfig();
         }
         return INSTANCE;
+    }
+
+    public String getCronExpression() {
+        return cronExpression;
+    }
+
+    public void setCronExpression(String cronExpression) {
+        this.cronExpression = cronExpression;
     }
 
     public String getHost() {
@@ -73,7 +87,7 @@ public class BackUpConfig {
 
     @Override
     public String toString() {
-        return "BackUpConfig{" +
+        return "PropertyConfig{" +
                 "host='" + host + '\'' +
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +

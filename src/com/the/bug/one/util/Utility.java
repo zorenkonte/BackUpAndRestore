@@ -1,6 +1,6 @@
 package com.the.bug.one.util;
 
-import com.the.bug.one.job.BackUpConfig;
+import com.the.bug.one.job.PropertyConfig;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.filechooser.FileSystemView;
@@ -61,7 +61,7 @@ public class Utility {
 
     public static void loadProperties() {
         try (InputStream input = Utility.class.getClassLoader().getResourceAsStream("resources/app.properties")) {
-            var conf = BackUpConfig.getInstance();
+            var conf = PropertyConfig.getInstance();
             var prop = new Properties();
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
@@ -73,6 +73,7 @@ public class Utility {
             conf.setUser(prop.getProperty("user"));
             conf.setPassword(prop.getProperty("password"));
             conf.setDatabase(prop.getProperty("database"));
+            conf.setCronExpression(prop.getProperty("cron-expression"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

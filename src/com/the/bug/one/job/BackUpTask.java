@@ -7,7 +7,7 @@ import org.quartz.JobExecutionException;
 
 public class BackUpTask implements Job {
 
-    private final BackUpConfig config = BackUpConfig.getInstance();
+    private final PropertyConfig config = PropertyConfig.getInstance();
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
