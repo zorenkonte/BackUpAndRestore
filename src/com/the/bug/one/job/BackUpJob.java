@@ -6,12 +6,12 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-public class BackUpTask implements Job {
+public class BackUpJob implements Job {
 
-    private final PropertyConfig config = PropertyConfig.getInstance();
+    private static final PropertyConfig CONFIG = PropertyConfig.getInstance();
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        BackUp.performBackUp(config); //do backup
+        BackUp.performBackUp(CONFIG); //do backup
     }
 }

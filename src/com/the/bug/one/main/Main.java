@@ -1,6 +1,6 @@
 package com.the.bug.one.main;
 
-import com.the.bug.one.job.BackUpTask;
+import com.the.bug.one.job.BackUpJob;
 import com.the.bug.one.config.PropertyConfig;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
@@ -21,7 +21,7 @@ public class Main {
         try {
             var sf = new StdSchedulerFactory();
             var scheduler = sf.getScheduler();
-            var job = newJob(BackUpTask.class)
+            var job = newJob(BackUpJob.class)
                     .withIdentity("backup", "groupOne")
                     .build();
             var trigger = newTrigger()
