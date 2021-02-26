@@ -1,18 +1,32 @@
 package com.the.bug.one.main;
 
-import com.the.bug.one.backup.BackUp;
+import com.the.bug.one.job.BackUpTask;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
 
 import static com.the.bug.one.util.Utility.createDefaultDirectory;
+import static org.quartz.CronScheduleBuilder.cronSchedule;
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 public class Main {
     public static void main(String[] args) {
-        String host = args[0];
-        String user = args[1];
-        String password = args[2];
-        String database = args[3];
-
         createDefaultDirectory(); //create default folder if not exist on startup
 
-        BackUp.performBackUp(host, user, password, database); //do backup
+        try {
+            var sf = new StdSchedulerFactory();
+            var scheduler = sf.getScheduler();
+            var job = newJob(BackUpTask.class)
+                    .withIdentity("backup", "groupOne")
+                    .build();
+            var trigger = newTrigger()
+                    .withIdentity("triggerOne", "groupOne")
+                    .withSchedule(cronSchedule("* * * ? * *"))
+                    .build();
+            scheduler.scheduleJob(job, trigger);
+            scheduler.start();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 }

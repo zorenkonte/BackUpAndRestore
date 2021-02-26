@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
