@@ -4,7 +4,9 @@ import com.the.bug.one.config.PropertyConfig;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.filechooser.FileSystemView;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ public class Utility {
     private static final String DEFAULT_DIR = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
     private static final String DEFAULT_SEPARATOR = File.separator;
     private static final String FOLDER_NAME = "AUTO_BACK_UP";
+    private static final PropertyConfig CONFIG = PropertyConfig.getInstance();
 
     public static File getLatestBackUp() {
         var directory = new File(CURRENT_PATH);
@@ -61,19 +64,18 @@ public class Utility {
 
     public static void loadProperties() {
         try (InputStream input = Utility.class.getClassLoader().getResourceAsStream("resources/app.properties")) {
-            var conf = PropertyConfig.getInstance();
             var prop = new Properties();
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
-                return;
+            } else {
+                prop.load(input);
+                CONFIG.setHost(prop.getProperty("host"));
+                CONFIG.setPort(prop.getProperty("port"));
+                CONFIG.setUser(prop.getProperty("user"));
+                CONFIG.setPassword(prop.getProperty("password"));
+                CONFIG.setDatabase(prop.getProperty("database"));
+                CONFIG.setCronExpression(prop.getProperty("cron-expression"));
             }
-            prop.load(input);
-            conf.setHost(prop.getProperty("host"));
-            conf.setPort(prop.getProperty("port"));
-            conf.setUser(prop.getProperty("user"));
-            conf.setPassword(prop.getProperty("password"));
-            conf.setDatabase(prop.getProperty("database"));
-            conf.setCronExpression(prop.getProperty("cron-expression"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
