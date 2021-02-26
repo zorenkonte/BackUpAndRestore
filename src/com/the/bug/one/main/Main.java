@@ -1,7 +1,7 @@
 package com.the.bug.one.main;
 
 import com.the.bug.one.job.BackUpTask;
-import com.the.bug.one.job.PropertyConfig;
+import com.the.bug.one.config.PropertyConfig;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 

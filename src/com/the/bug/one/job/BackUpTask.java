@@ -1,6 +1,7 @@
 package com.the.bug.one.job;
 
 import com.the.bug.one.backup.BackUp;
+import com.the.bug.one.config.PropertyConfig;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

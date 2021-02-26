@@ -1,6 +1,6 @@
 package com.the.bug.one.util;
 
-import com.the.bug.one.job.PropertyConfig;
+import com.the.bug.one.config.PropertyConfig;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.filechooser.FileSystemView;

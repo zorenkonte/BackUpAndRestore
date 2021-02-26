@@ -1,6 +1,6 @@
 package com.the.bug.one.backup;
 
-import com.the.bug.one.job.PropertyConfig;
+import com.the.bug.one.config.PropertyConfig;
 import com.the.bug.one.logger.FileLogger;
 import com.the.bug.one.util.Utility;
 

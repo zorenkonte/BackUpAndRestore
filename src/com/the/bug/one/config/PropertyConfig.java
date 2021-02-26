@@ -1,4 +1,4 @@
-package com.the.bug.one.job;
+package com.the.bug.one.config;
 
 public class PropertyConfig {
     private static PropertyConfig INSTANCE = null;
