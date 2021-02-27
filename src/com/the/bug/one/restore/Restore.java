@@ -1,6 +1,5 @@
 package com.the.bug.one.restore;
 
-import com.the.bug.one.logger.FileLogger;
 import com.the.bug.one.util.Utility;
 
 import javax.swing.*;
@@ -27,10 +26,9 @@ public class Restore {
                 JOptionPane.showMessageDialog(null, "Database Restored Successfully :D", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Couldn't Restore Database :(", "Error", JOptionPane.ERROR_MESSAGE);
-                FileLogger.logError(runtimeProcess);
             }  //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {
-            FileLogger.logError(ex);
+            ex.printStackTrace();
         }
     }
 }

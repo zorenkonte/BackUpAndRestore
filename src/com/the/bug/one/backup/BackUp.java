@@ -1,7 +1,6 @@
 package com.the.bug.one.backup;
 
 import com.the.bug.one.config.PropertyConfig;
-import com.the.bug.one.logger.FileLogger;
 import com.the.bug.one.util.Utility;
 
 import java.time.Instant;
@@ -24,10 +23,9 @@ public class BackUp {
                 System.out.format("%s : %s \n", "Back up created successfully", Instant.now());
             } else {
                 System.out.format("%s : %s \n", "Couldn't Create Back-Up :(", Instant.now());
-                FileLogger.logError(runtimeProcess);
             }   //TODO-RENZO: I will change the notification message next time. JOption sucks xD
         } catch (Exception ex) {
-            FileLogger.logError(ex);
+            ex.printStackTrace();
         }
     }
 }
