@@ -1,6 +1,7 @@
 package com.the.bug.one.util;
 
 import com.the.bug.one.config.PropertyConfig;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.filechooser.FileSystemView;
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Utility {
+    public static final Logger LOGGER = Logger.getLogger(Utility.class);
     private static final String FILE_NAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSSS";
     private static final Path PATH = FileSystems.getDefault().getPath(".").toAbsolutePath();
     private static final String CURRENT_PATH = PATH.toString().replace(".", "");
@@ -52,9 +54,9 @@ public class Utility {
     public static void createDefaultDirectory() {
         var file = new File(getDefaultDir());
         if (file.mkdirs()) {
-            System.out.println("Folder has been created.");
+            LOGGER.info("Folder has been created.");
         } else {
-            System.out.println("Folder already exists.");
+            LOGGER.warn("Folder already exists.");
         }
     }
 
@@ -62,7 +64,7 @@ public class Utility {
         try (InputStream input = Utility.class.getClassLoader().getResourceAsStream("resources/app.properties")) {
             var prop = new Properties();
             if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
+                LOGGER.warn("Sorry, unable to find app.properties");
             } else {
                 prop.load(input);
                 CONFIG.setHost(prop.getProperty("host"));
@@ -71,9 +73,10 @@ public class Utility {
                 CONFIG.setPassword(prop.getProperty("password"));
                 CONFIG.setDatabase(prop.getProperty("database"));
                 CONFIG.setCronExpression(prop.getProperty("cron-expression"));
+                LOGGER.info("Properties loaded");
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage());
         }
     }
 }
