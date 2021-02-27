@@ -58,10 +58,6 @@ public class Utility {
         }
     }
 
-    public static void main(String[] args) {
-        loadProperties();
-    }
-
     public static void loadProperties() {
         try (InputStream input = Utility.class.getClassLoader().getResourceAsStream("resources/app.properties")) {
             var prop = new Properties();
