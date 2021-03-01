@@ -18,9 +18,8 @@ public class Utility {
     private static final String FILE_NAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSSS";
     private static final Path PATH = FileSystems.getDefault().getPath(".").toAbsolutePath();
     private static final String CURRENT_PATH = PATH.toString().replace(".", "");
-    private static final String DEFAULT_DIR = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
     private static final String DEFAULT_SEPARATOR = File.separator;
-    private static final String FOLDER_NAME = "AUTO_BACK_UP";
+    private static final String FOLDER_NAME = "backup-files";
     private static final PropertyConfig CONFIG = PropertyConfig.getInstance();
 
     public static File getLatestBackUp() {
@@ -32,11 +31,7 @@ public class Utility {
     }
 
     public static String getCurrentPath() {
-        return CURRENT_PATH;
-    }
-
-    public static String getDefaultDir() {
-        return String.format("%s%s%s%s", DEFAULT_DIR, DEFAULT_SEPARATOR, FOLDER_NAME, DEFAULT_SEPARATOR);
+        return String.format("%s%s%s%s", CURRENT_PATH, DEFAULT_SEPARATOR, FOLDER_NAME, DEFAULT_SEPARATOR);
     }
 
     @NotNull
@@ -52,7 +47,7 @@ public class Utility {
     }
 
     public static void createDefaultDirectory() {
-        var file = new File(getDefaultDir());
+        var file = new File(getCurrentPath());
         if (file.mkdirs()) {
             LOGGER.info("Folder has been created.");
         } else {
