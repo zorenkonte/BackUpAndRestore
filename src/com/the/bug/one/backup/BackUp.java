@@ -9,7 +9,7 @@ public class BackUp {
 
     public static void performBackUp(PropertyConfig config) {
         Runtime runtime = Runtime.getRuntime();
-        String filePath = String.format("%s%s.sql", Utility.getDefaultDir(), Utility.getCurrentDate());
+        String filePath = String.format("%s%s.sql", Utility.getCurrentPath(), Utility.getCurrentDate());
         String backUpCommand = String.format("mysqldump -h%s -u%s -p%s --add-drop-database -B %s -P%s -r %s",
                 config.getHost(), config.getUser(), config.getPassword(), config.getDatabase(), config.getPort(), filePath);
         /*
