@@ -4,7 +4,6 @@ import com.the.bug.one.config.PropertyConfig;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
