@@ -8,6 +8,7 @@ public class PropertyConfig {
     private String database;
     private String port;
     private String cronExpression;
+    private String mysqlDump;
 
     public PropertyConfig() {
 
@@ -28,6 +29,11 @@ public class PropertyConfig {
     public PropertyConfig(String host, String user, String password, String database, String port, String cronExpression) {
         this(host, user, password, database, port);
         this.cronExpression = cronExpression;
+    }
+
+    public PropertyConfig(String host, String user, String password, String database, String port, String cronExpression, String mysqlDump) {
+        this(host, user, password, database, port, cronExpression);
+        this.mysqlDump = mysqlDump;
     }
 
     public static PropertyConfig getInstance() {
@@ -85,6 +91,14 @@ public class PropertyConfig {
         this.port = port;
     }
 
+    public String getMysqlDump() {
+        return mysqlDump;
+    }
+
+    public void setMysqlDump(String mysqlDump) {
+        this.mysqlDump = mysqlDump;
+    }
+
     @Override
     public String toString() {
         return "PropertyConfig{" +
@@ -93,6 +107,8 @@ public class PropertyConfig {
                 ", password='" + password + '\'' +
                 ", database='" + database + '\'' +
                 ", port='" + port + '\'' +
+                ", cronExpression='" + cronExpression + '\'' +
+                ", mysqlDump='" + mysqlDump + '\'' +
                 '}';
     }
 }

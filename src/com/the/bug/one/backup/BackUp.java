@@ -10,8 +10,8 @@ public class BackUp {
     public static void performBackUp(PropertyConfig config) {
         Runtime runtime = Runtime.getRuntime();
         String filePath = String.format("%s%s.sql", Utility.getCurrentPath(), Utility.getCurrentDate());
-        String backUpCommand = String.format("mysqldump -h%s -u%s -p%s --add-drop-database -B %s -P%s -r %s",
-                config.getHost(), config.getUser(), config.getPassword(), config.getDatabase(), config.getPort(), filePath);
+        String backUpCommand = String.format("%s -h%s -u%s -p%s --add-drop-database -B %s -P%s -r %s",
+                config.getMysqlDump(), config.getHost(), config.getUser(), config.getPassword(), config.getDatabase(), config.getPort(), filePath);
         /*
          *  mysqldump variable is registered to my system path.
          *  Or you can just replace it with the directory of mysqldump.exe in your machine.

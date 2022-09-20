@@ -67,6 +67,7 @@ public class Utility {
                 CONFIG.setPassword(prop.getProperty("password"));
                 CONFIG.setDatabase(prop.getProperty("database"));
                 CONFIG.setCronExpression(prop.getProperty("cron-expression"));
+                CONFIG.setMysqlDump((prop.getProperty("mysql-dump")));
                 LOGGER.info("Properties loaded");
             }
         } catch (IOException ex) {
